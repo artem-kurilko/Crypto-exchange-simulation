@@ -1,10 +1,8 @@
 package com.market.simulation.controller;
 
 import com.market.simulation.service.OrdersServiceImpl;
-import org.json.JSONArray;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,7 +11,7 @@ import javax.validation.constraints.NotNull;
 @RestController
 @RequestMapping("http://localhost:8080")
 public class OrdersController {
-    private OrdersServiceImpl ordersService;
+    private final OrdersServiceImpl ordersService;
 
     @Autowired
     public OrdersController(OrdersServiceImpl ordersService) {
@@ -36,14 +34,8 @@ public class OrdersController {
         return new ResponseEntity<>(averagePrice, HttpStatus.OK);
     }
 
-    @GetMapping(value = "/open-orders", produces = MediaType.APPLICATION_JSON_VALUE)
-    private ResponseEntity<JSONArray> getOpenOrders(){
-        JSONArray openOrders = ordersService.getOpenOrders();
-        return new ResponseEntity(openOrders, HttpStatus.OK);
-    }
-
     @DeleteMapping("/delete")
-    private ResponseEntity deleteOrder(@RequestParam String clientOrderId){
+    private ResponseEntity cancelOrder(@RequestParam @NotNull String clientOrderId){
         ordersService.cancelOrder(clientOrderId);
         return new ResponseEntity(HttpStatus.OK);
     }
