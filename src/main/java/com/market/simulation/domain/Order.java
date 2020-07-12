@@ -1,8 +1,6 @@
 package com.market.simulation.domain;
 
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -21,7 +19,6 @@ import javax.validation.constraints.Size;
 @Table(name = "user_order")
 @Getter
 @Setter
-@ToString
 public class Order extends BaseEntity{
 
     @NotNull
@@ -52,4 +49,15 @@ public class Order extends BaseEntity{
     @NotNull
     @Column(name = "status")
     private String status;
+
+    public Order(String symbol, String side, String quantity, String price, String createdAt, String cumQuantity, String status) {
+        this.symbol = symbol;
+        this.side = side;
+        this.quantity = quantity;
+        this.price = price;
+        this.createdAt = createdAt;
+        this.cumQuantity = cumQuantity;
+        this.status = status;
+    }
+
 }

@@ -1,15 +1,3 @@
-Tasks:
-
-- write domain classes
-- finish repositories
-- create services
-- create controllers
-
-
-In progress:
-- create db and table
-
-
 ### Crypto market simulation ###
 
 This program shows real-time BTC-USDT price, also it simulates trades, using parsing open orders from HitBTC exchange.
@@ -39,3 +27,7 @@ delete order, mandatory parameter string client order id
 - canceling order/orders
 
 You can use multi threads to test your parameters more efficiently.
+
+
+Tasks:
+- decide how to separate user and order controller

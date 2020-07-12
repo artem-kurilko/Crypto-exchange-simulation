@@ -8,10 +8,17 @@
     <artifactId>crypto-market-simaltion</artifactId>
     <version>1.0-SNAPSHOT</version>
 
+    <name>Crypto market simulation</name>
+    <description>This program accurately simulates crypto exchange, it takes real data of current orders on hitbtc,
+                    current currency value and proceed your orders if they match any current orders of other traders. </description>
+
     <properties>
         <spring.version>2.2.2.RELEASE</spring.version>
+        <http-client.version>4.5.10</http-client.version>
         <mysql-connector.version>8.0.13</mysql-connector.version>
         <lombok.version>1.18.10</lombok.version>
+        <commons-math.version>3.5</commons-math.version>
+        <junit.version>5.6.0</junit.version>
         <maven.compiler.target>1.8</maven.compiler.target>
         <maven.compiler.source>1.8</maven.compiler.source>
     </properties>
@@ -27,6 +34,12 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa</artifactId>
             <version>${spring.version}</version>
+        </dependency>
+        <!-- HttpClient -->
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpclient</artifactId>
+            <version>${http-client.version}</version>
         </dependency>
         <!-- Lombok -->
         <dependency>
@@ -53,6 +66,19 @@
             <groupId>org.json</groupId>
             <artifactId>json</artifactId>
             <version>20160807</version>
+        </dependency>
+        <!-- Commons-math -->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-math3</artifactId>
+            <version>${commons-math.version}</version>
+        </dependency>
+        <!-- Junit -->
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-api</artifactId>
+            <version>${junit.version}</version>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 

@@ -1,10 +1,12 @@
 package com.market.simulation.service;
 
+import java.io.IOException;
+
 public interface OrdersService {
 
-    void placeOrder(String side, String quantity, String price, String currencyPair);
+    void createOrder(String symbol, String side, String quantity, String price) throws IOException;
 
-    void cancelOrder(Long id);
+    void cancelOrder(Long id) throws IOException;
 
-    String getAveragePrice(String currencyPair);
+    String getAveragePrice(String symbol) throws IOException;
 }
