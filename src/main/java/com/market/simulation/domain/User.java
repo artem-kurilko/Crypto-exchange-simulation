@@ -7,6 +7,13 @@ import org.json.JSONArray;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
+/**
+ * Class that represents user
+ *
+ * @author Artemii Kurilko
+ * @version 1.0
+ */
+
 @Entity
 @Table(name = "")
 @Getter
