@@ -1,16 +1,19 @@
 package com.market.simulation.domain;
 
-import lombok.Getter;
-import lombok.Setter;
-
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import java.time.Instant;
 
+/**
+ * Class class with property ID.
+ *
+ * @author Artemii Kurilko
+ * @version 1.0
+ */
+
+
 @Entity
 @Table(name = "")
-@Getter
-@Setter
 public class Order extends BaseEntity{
 
     private String symbol;

@@ -1,12 +1,13 @@
 Tasks:
+
 - write domain classes
-- create controllers
+- finish repositories
 - create services
-- create db and table
+- create controllers
 
 
 In progress:
-
+- create db and table
 
 
 ### Crypto market simulation ###
