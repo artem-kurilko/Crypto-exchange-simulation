@@ -1,5 +1,8 @@
 package com.market.simulation.service;
 
+import com.market.simulation.repository.OrdersRepository;
+import org.json.JSONArray;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
@@ -9,19 +12,26 @@ import org.springframework.stereotype.Service;
 @Service
 public class OrdersServiceImpl implements OrdersService{
 
+    private OrdersRepository ordersRepository;
+
+    @Autowired
+    public OrdersServiceImpl(OrdersRepository ordersRepository) {
+        this.ordersRepository = ordersRepository;
+    }
+
     @Override
-    public void placeOrder(boolean isBuy, String quantity, String price, String currencyPair) {
+    public void placeOrder(String side, String quantity, String price, String currencyPair) {
 
     }
 
     @Override
-    public void cancelOrder(String clientOrderId) {
-
+    public void cancelOrder(Long id) {
+        ordersRepository.deleteById(id);
     }
 
     @Override
-    public void getOpenOrders() {
-
+    public JSONArray getOpenOrders() {
+        return null;
     }
 
     @Override

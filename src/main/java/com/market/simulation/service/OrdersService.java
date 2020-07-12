@@ -1,12 +1,14 @@
 package com.market.simulation.service;
 
+import org.json.JSONArray;
+
 public interface OrdersService {
 
-    void placeOrder(boolean isBuy, String quantity, String price, String currencyPair);
+    void placeOrder(String side, String quantity, String price, String currencyPair);
 
-    void cancelOrder(String clientOrderId);
+    void cancelOrder(Long id);
 
-    void getOpenOrders();
+    JSONArray getOpenOrders();
 
     String getAveragePrice(String currencyPair);
 }
