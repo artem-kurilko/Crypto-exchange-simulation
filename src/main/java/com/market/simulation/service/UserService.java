@@ -1,5 +1,7 @@
 package com.market.simulation.service;
 
+import com.market.simulation.domain.User;
+import com.market.simulation.exception.UserNotFoundException;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -11,6 +13,9 @@ import org.json.JSONObject;
  */
 
 public interface UserService {
+    User getUserByApi(String API) throws UserNotFoundException;
+
+    User getUserById(Long id) throws UserNotFoundException;
 
     JSONArray getActiveOrders(String API);
 

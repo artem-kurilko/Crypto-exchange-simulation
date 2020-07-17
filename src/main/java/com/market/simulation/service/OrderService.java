@@ -9,11 +9,11 @@ import java.io.IOException;
  * @version 1.0
  */
 
-public interface OrdersService {
+public interface OrderService {
 
-    void createOrder(String symbol, String side, String quantity, String price) throws IOException;
+    void createOrder(String API, Long clientOrderId, String symbol, String side, String quantity, String price) throws IOException;
 
-    void cancelOrder(Long id) throws IOException;
+    void cancelOrder(String API, Long clientOrderId) throws IOException;
 
     String getAveragePrice(String symbol) throws IOException;
 }

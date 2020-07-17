@@ -1,8 +1,7 @@
 package com.market.simulation.service;
 
 import com.market.simulation.domain.Order;
-import com.market.simulation.repository.OrdersRepository;
-import com.market.simulation.repository.UserRepository;
+import com.market.simulation.repository.OrderRepository;
 import org.apache.commons.math3.util.Precision;
 import org.json.JSONArray;
 import org.slf4j.Logger;
@@ -13,46 +12,42 @@ import org.springframework.stereotype.Service;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.time.Instant;
 
 import static java.lang.String.valueOf;
 
 /**
- *  Implementation of {@link OrdersService} interface
+ *  Implementation of {@link OrderService} interface
  *
  * @author Kurilko Artemii
  * @version 1.0
  */
 
 @Service
-public class OrdersServiceImpl implements OrdersService{
+public class OrderServiceImpl implements OrderService {
     private final int accuracy = 5;
-    private final OrdersRepository ordersRepository;
+    private final OrderRepository orderRepository;
     private final Logger log = LoggerFactory.getLogger("OrdersServiceImpl");
 
     @Autowired
-    public OrdersServiceImpl(OrdersRepository ordersRepository) {
-        this.ordersRepository = ordersRepository;
+    public OrderServiceImpl(OrderRepository ordersRepository) {
+        this.orderRepository = ordersRepository;
     }
 
     @Override
-    public void createOrder(String symbol, String side, String quantity, String price) {
-        Date date = new Date();
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        String createdAt = simpleDateFormat.format(date);
+    public void createOrder(String API, Long clientOrderId, String symbol, String side, String quantity, String price) throws IOException {
+        String createdAt = valueOf(Instant.now());
         String cumQuantity = "0.0";
         String status = "new";
-        Order order = new Order(symbol, side, quantity, price, createdAt, cumQuantity, status);
 
-        Order newOrder = ordersRepository.save(order);
-        log.info("place order " + newOrder);
+        Order newOrder = new Order(clientOrderId, symbol, side, quantity, price, createdAt, cumQuantity, status);
+        orderRepository.save(newOrder);
+        log.info("placed new " + side + " order");
     }
 
     @Override
-    public void cancelOrder(Long id) {
-        ordersRepository.deleteById(id);
-        log.info("canceled order, order id: " + id);
+    public void cancelOrder(String API, Long clientOrderId) throws IOException {
+
     }
 
     @Override

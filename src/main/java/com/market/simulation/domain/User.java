@@ -15,7 +15,6 @@ import javax.validation.constraints.NotNull;
  * @version 1.0
  */
 
-
 @Getter
 @Setter
 @Entity
@@ -25,8 +24,4 @@ public class User extends BaseEntity{
     @NotNull
     @Column(name = "key")
     private String key;
-
-    @NotNull
-    @Column
-    private String balance;
 }

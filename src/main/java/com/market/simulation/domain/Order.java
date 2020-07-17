@@ -2,10 +2,10 @@ package com.market.simulation.domain;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
 
-import javax.persistence.Column;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 
 /**
  * Class that represents user order
@@ -16,42 +16,43 @@ import javax.validation.constraints.Size;
 
 @Getter
 @Setter
+@Document(collection="order")
 public class Order extends BaseEntity{
 
     @NotNull
-    @Column(name = "client_order_id")
+    @Field(value = "client_order_id")
     private Long clientOrderId;
 
     @NotNull
-    @Column(name = "symbol")
+    @Field(value = "symbol")
     private String symbol;
 
     @NotNull
-    @Size(min = 3, max = 4)
-    @Column(name = "side")
+    @Field(value = "side")
     private String side;
 
     @NotNull
-    @Column(name = "quantity")
+    @Field(value = "quantity")
     private String quantity;
 
     @NotNull
-    @Column(name = "price")
+    @Field(value = "price")
     private String price;
 
     @NotNull
-    @Column(name = "created_at")
+    @Field(value = "created_at")
     private String createdAt;
 
     @NotNull
-    @Column(name = "cum_quantity")
+    @Field(value = "cum_quantity")
     private String cumQuantity;
 
     @NotNull
-    @Column(name = "status")
+    @Field(value = "status")
     private String status;
 
-    public Order(String symbol, String side, String quantity, String price, String createdAt, String cumQuantity, String status) {
+    public Order(Long clientOrderId, String symbol, String side, String quantity, String price, String createdAt, String cumQuantity, String status) {
+        this.clientOrderId = clientOrderId;
         this.symbol = symbol;
         this.side = side;
         this.quantity = quantity;
@@ -60,5 +61,4 @@ public class Order extends BaseEntity{
         this.cumQuantity = cumQuantity;
         this.status = status;
     }
-
 }

@@ -1,5 +1,7 @@
 package com.market.simulation.service;
 
+import com.market.simulation.domain.User;
+import com.market.simulation.exception.UserNotFoundException;
 import com.market.simulation.repository.UserRepository;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -19,6 +21,20 @@ public class UserServiceImpl implements UserService{
     @Autowired
     public UserServiceImpl(UserRepository userRepository) {
         this.userRepository = userRepository;
+    }
+
+    @Override
+    public User getUserByApi(String API) throws UserNotFoundException{
+        User user = userRepository.findUserByAPI(API);
+        if (user == null)
+            throw new UserNotFoundException("user not found");
+        else return user;
+    }
+
+    @Override
+    public User getUserById(Long id) throws UserNotFoundException {
+        User user = userRepository.findById(id).orElseThrow(() -> new UserNotFoundException("user not found"));
+        return user;
     }
 
     @Override
