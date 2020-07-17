@@ -2,6 +2,7 @@ package com.market.simulation.service;
 
 import com.market.simulation.domain.Order;
 import com.market.simulation.repository.OrdersRepository;
+import com.market.simulation.repository.UserRepository;
 import org.apache.commons.math3.util.Precision;
 import org.json.JSONArray;
 import org.slf4j.Logger;
@@ -18,7 +19,10 @@ import java.util.Date;
 import static java.lang.String.valueOf;
 
 /**
- *  Implementation of {@link OrdersService} class
+ *  Implementation of {@link OrdersService} interface
+ *
+ * @author Kurilko Artemii
+ * @version 1.0
  */
 
 @Service

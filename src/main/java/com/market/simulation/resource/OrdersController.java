@@ -24,4 +24,20 @@ public class OrdersController {
         String averagePrice = ordersService.getAveragePrice(symbol);
         return new ResponseEntity<>(averagePrice, HttpStatus.OK);
     }
+
+    @PostMapping("/create")
+    private ResponseEntity placeOrder(@RequestParam @NotNull String side,
+                                      @RequestParam @NotNull String quantity,
+                                      @RequestParam @NotNull String price,
+                                      @RequestParam @NotNull String symbol) throws IOException {
+
+        ordersService.createOrder(symbol, side, quantity, price);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @DeleteMapping("/delete")
+    private ResponseEntity cancelOrder(@RequestParam @NotNull Long id) throws IOException{
+        ordersService.cancelOrder(id);
+        return new ResponseEntity(HttpStatus.OK);
+    }
 }

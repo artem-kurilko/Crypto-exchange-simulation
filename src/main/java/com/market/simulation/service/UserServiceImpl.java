@@ -1,51 +1,63 @@
 package com.market.simulation.service;
 
+import com.market.simulation.repository.UserRepository;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.springframework.beans.factory.annotation.Autowired;
 
 /**
- * Implementation of @{UserService.class}
+ * Implementation of {@link UserService} interface
+ *
+ * @author Artemii Kurilko
+ * @version 1.0
  */
 
 public class UserServiceImpl implements UserService{
 
+    private final UserRepository userRepository;
+
+    @Autowired
+    public UserServiceImpl(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
+
     @Override
-    public JSONArray getActiveOrders() {
+    public JSONArray getActiveOrders(String API) {
         return null;
     }
 
     @Override
-    public JSONObject getLastActiveOrder() {
+    public JSONObject getLastActiveOrder(String API) {
         return null;
     }
 
     @Override
-    public JSONArray getOrdersHistory() {
+    public JSONArray getTradeHistory(String API) {
         return null;
     }
 
     @Override
-    public JSONObject getLastOrderHistory() {
+    public JSONObject getLastTradeHistory(String API) {
         return null;
     }
 
     @Override
-    public String getBalance(String currency) {
+    public String getBalance(String API, String currency) {
         return null;
     }
 
     @Override
-    public String getUSDTBalance() {
+    public String getUSDTBalance(String API) {
         return null;
     }
 
     @Override
-    public String getBTCBalance() {
+    public String getBTCBalance(String API) {
         return null;
     }
 
     @Override
-    public String getETHBalance() {
+    public String getETHBalance(String API) {
         return null;
     }
 }

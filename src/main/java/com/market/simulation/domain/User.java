@@ -2,10 +2,11 @@ package com.market.simulation.domain;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.json.JSONArray;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 /**
  * Class that represents user
@@ -17,13 +18,15 @@ import javax.persistence.Table;
 
 @Getter
 @Setter
+@Entity
+@Table(name = "user")
 public class User extends BaseEntity{
 
+    @NotNull
+    @Column(name = "key")
     private String key;
 
-    private JSONArray openOrders;
-
-    private JSONArray activeOrders;
-
+    @NotNull
+    @Column
     private String balance;
 }

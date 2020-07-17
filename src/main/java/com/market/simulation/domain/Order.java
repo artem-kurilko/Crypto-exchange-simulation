@@ -1,10 +1,9 @@
 package com.market.simulation.domain;
 
-import lombok.*;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -15,11 +14,13 @@ import javax.validation.constraints.Size;
  * @version 1.0
  */
 
-@Entity
-@Table(name = "user_order")
 @Getter
 @Setter
 public class Order extends BaseEntity{
+
+    @NotNull
+    @Column(name = "client_order_id")
+    private Long clientOrderId;
 
     @NotNull
     @Column(name = "symbol")
