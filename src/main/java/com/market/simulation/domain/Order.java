@@ -21,7 +21,7 @@ public class Order extends BaseEntity{
 
     @NotNull
     @Field(value = "client_order_id")
-    private Long clientOrderId;
+    private String clientOrderId;
 
     @NotNull
     @Field(value = "symbol")
@@ -51,7 +51,7 @@ public class Order extends BaseEntity{
     @Field(value = "status")
     private String status;
 
-    public Order(Long clientOrderId, String symbol, String side, String quantity, String price, String createdAt, String cumQuantity, String status) {
+    public Order(String clientOrderId, String symbol, String side, String quantity, String price, String createdAt, String cumQuantity, String status) {
         this.clientOrderId = clientOrderId;
         this.symbol = symbol;
         this.side = side;

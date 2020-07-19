@@ -35,18 +35,17 @@ public class OrdersController {
                                      @RequestParam @NotNull String side,
                                      @RequestParam @NotNull String quantity,
                                      @RequestParam @NotNull String price,
-                                     @RequestParam @NotNull String symbol) throws IOException {
+                                     @RequestParam @NotNull String symbol) throws IOException, UserNotFoundException {
 
         User user = userService.getUserByApi(API);
-        Long clientOrderId = user.getId();
-        ordersService.createOrder(API, clientOrderId, symbol, side, quantity, price);
+        ordersService.createOrder(API, symbol, side, quantity, price);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @DeleteMapping("/delete")
     public ResponseEntity cancelOrder(@RequestHeader @NotNull String API,
-                                      @RequestParam @NotNull Long clientOrderId) throws IOException, UserNotFoundException {
-        User user = userService.getUserById(clientOrderId);
+                                      @RequestParam @NotNull String clientOrderId) throws IOException, UserNotFoundException {
+        User user = userService.getUserByApi(API);
         ordersService.cancelOrder(user.getKey(), clientOrderId);
         return new ResponseEntity(HttpStatus.OK);
     }

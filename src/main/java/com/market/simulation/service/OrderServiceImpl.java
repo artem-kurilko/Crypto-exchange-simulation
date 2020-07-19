@@ -2,6 +2,7 @@ package com.market.simulation.service;
 
 import com.market.simulation.domain.Order;
 import com.market.simulation.repository.OrderRepository;
+import com.market.simulation.repository.UserRepository;
 import org.apache.commons.math3.util.Precision;
 import org.json.JSONArray;
 import org.slf4j.Logger;
@@ -13,6 +14,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.time.Instant;
+import java.util.UUID;
 
 import static java.lang.String.valueOf;
 
@@ -27,18 +29,20 @@ import static java.lang.String.valueOf;
 public class OrderServiceImpl implements OrderService {
     private final int accuracy = 5;
     private final OrderRepository orderRepository;
+    private final UserRepository userRepository;
     private final Logger log = LoggerFactory.getLogger("OrdersServiceImpl");
 
-    @Autowired
-    public OrderServiceImpl(OrderRepository ordersRepository) {
-        this.orderRepository = ordersRepository;
+    public OrderServiceImpl(OrderRepository orderRepository, UserRepository userRepository) {
+        this.orderRepository = orderRepository;
+        this.userRepository = userRepository;
     }
 
     @Override
-    public void createOrder(String API, Long clientOrderId, String symbol, String side, String quantity, String price) throws IOException {
+    public void createOrder(String API, String symbol, String side, String quantity, String price) throws IOException {
         String createdAt = valueOf(Instant.now());
         String cumQuantity = "0.0";
         String status = "new";
+        String clientOrderId = UUID.randomUUID().toString();
 
         Order newOrder = new Order(clientOrderId, symbol, side, quantity, price, createdAt, cumQuantity, status);
         orderRepository.save(newOrder);
@@ -46,8 +50,10 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public void cancelOrder(String API, Long clientOrderId) throws IOException {
-
+    public void cancelOrder(String API, String clientOrderId) throws IOException {
+        Order cancelOrder = orderRepository.findOrderByClientOrderId(clientOrderId);
+        orderRepository.delete(cancelOrder);
+        log.info("order has been canceled: " + clientOrderId);
     }
 
     @Override
