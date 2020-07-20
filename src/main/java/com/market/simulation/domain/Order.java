@@ -20,38 +20,43 @@ import javax.validation.constraints.NotNull;
 public class Order extends BaseEntity{
 
     @NotNull
+    @Field(value = "user_id")
+    Long userId;
+
+    @NotNull
     @Field(value = "client_order_id")
-    private String clientOrderId;
+    String clientOrderId;
 
     @NotNull
     @Field(value = "symbol")
-    private String symbol;
+    String symbol;
 
     @NotNull
     @Field(value = "side")
-    private String side;
+    String side;
 
     @NotNull
     @Field(value = "quantity")
-    private String quantity;
+    String quantity;
 
     @NotNull
     @Field(value = "price")
-    private String price;
+    String price;
 
     @NotNull
     @Field(value = "created_at")
-    private String createdAt;
+    String createdAt;
 
     @NotNull
     @Field(value = "cum_quantity")
-    private String cumQuantity;
+    String cumQuantity;
 
     @NotNull
     @Field(value = "status")
-    private String status;
+    String status;
 
-    public Order(String clientOrderId, String symbol, String side, String quantity, String price, String createdAt, String cumQuantity, String status) {
+    public Order(Long userId, String clientOrderId, String symbol, String side, String quantity, String price, String createdAt, String cumQuantity, String status) {
+        this.userId = userId;
         this.clientOrderId = clientOrderId;
         this.symbol = symbol;
         this.side = side;

@@ -11,7 +11,7 @@ import java.io.IOException;
 
 public interface OrderService {
 
-    void createOrder(String API, String symbol, String side, String quantity, String price) throws IOException;
+    void createOrder(Long userId, String API, String symbol, String side, String quantity, String price) throws IOException;
 
     void cancelOrder(String API, String clientOrderId) throws IOException;
 

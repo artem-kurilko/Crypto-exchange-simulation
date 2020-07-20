@@ -14,12 +14,12 @@ import java.io.IOException;
 
 @RestController
 @RequestMapping("http://localhost:8080")
-public class OrdersController {
+public class OrderController {
     private final OrderServiceImpl ordersService;
     private final UserServiceImpl userService;
 
     @Autowired
-    public OrdersController(OrderServiceImpl ordersService, UserServiceImpl userService) {
+    public OrderController(OrderServiceImpl ordersService, UserServiceImpl userService) {
         this.ordersService = ordersService;
         this.userService = userService;
     }
@@ -38,15 +38,18 @@ public class OrdersController {
                                      @RequestParam @NotNull String symbol) throws IOException, UserNotFoundException {
 
         User user = userService.getUserByApi(API);
-        ordersService.createOrder(API, symbol, side, quantity, price);
+        Long userId = user.getId();
+        ordersService.createOrder(userId, API, symbol, side, quantity, price);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @DeleteMapping("/delete")
     public ResponseEntity cancelOrder(@RequestHeader @NotNull String API,
                                       @RequestParam @NotNull String clientOrderId) throws IOException, UserNotFoundException {
+
         User user = userService.getUserByApi(API);
-        ordersService.cancelOrder(user.getKey(), clientOrderId);
+        String userKey = user.getKey();
+        ordersService.cancelOrder(userKey, clientOrderId);
         return new ResponseEntity(HttpStatus.OK);
     }
 }

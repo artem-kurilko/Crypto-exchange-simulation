@@ -32,13 +32,9 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public User getUserById(Long id) throws UserNotFoundException {
-        User user = userRepository.findById(id).orElseThrow(() -> new UserNotFoundException("user not found"));
-        return user;
-    }
-
-    @Override
     public JSONArray getActiveOrders(String API) {
+        User user = userRepository.findUserByAPI(API);
+        user.getId();
         return null;
     }
 

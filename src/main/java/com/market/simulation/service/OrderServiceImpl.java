@@ -1,8 +1,11 @@
 package com.market.simulation.service;
 
+import com.market.simulation.domain.ActiveOrders;
+import com.market.simulation.domain.Balance;
 import com.market.simulation.domain.Order;
+import com.market.simulation.repository.ActiveOrdersRepository;
+import com.market.simulation.repository.BalanceRepository;
 import com.market.simulation.repository.OrderRepository;
-import com.market.simulation.repository.UserRepository;
 import org.apache.commons.math3.util.Precision;
 import org.json.JSONArray;
 import org.slf4j.Logger;
@@ -19,7 +22,7 @@ import java.util.UUID;
 import static java.lang.String.valueOf;
 
 /**
- *  Implementation of {@link OrderService} interface
+ * Implementation of {@link OrderService} interface
  *
  * @author Kurilko Artemii
  * @version 1.0
@@ -29,30 +32,41 @@ import static java.lang.String.valueOf;
 public class OrderServiceImpl implements OrderService {
     private final int accuracy = 5;
     private final OrderRepository orderRepository;
-    private final UserRepository userRepository;
+    private final ActiveOrdersRepository activeOrdersRepository;
+    private final BalanceRepository balanceRepository;
     private final Logger log = LoggerFactory.getLogger("OrdersServiceImpl");
 
-    public OrderServiceImpl(OrderRepository orderRepository, UserRepository userRepository) {
+    @Autowired
+    public OrderServiceImpl(OrderRepository orderRepository, ActiveOrdersRepository activeOrdersRepository, BalanceRepository balanceRepository) {
         this.orderRepository = orderRepository;
-        this.userRepository = userRepository;
+        this.activeOrdersRepository = activeOrdersRepository;
+        this.balanceRepository = balanceRepository;
     }
 
     @Override
-    public void createOrder(String API, String symbol, String side, String quantity, String price) throws IOException {
+    public void createOrder(Long userId, String API, String symbol, String side, String quantity, String price) throws IOException {
         String createdAt = valueOf(Instant.now());
         String cumQuantity = "0.0";
         String status = "new";
         String clientOrderId = UUID.randomUUID().toString();
 
-        Order newOrder = new Order(clientOrderId, symbol, side, quantity, price, createdAt, cumQuantity, status);
-        orderRepository.save(newOrder);
+        Order newOrder = new Order(userId, clientOrderId, symbol, side, quantity, price, createdAt, cumQuantity, status);
+        ActiveOrders activeOrder = (ActiveOrders) newOrder;
+
+        orderRepository.insert(newOrder);
+        activeOrdersRepository.insert(activeOrder);
+        Balance balance = balanceRepository.findByUserId(userId);
+
         log.info("placed new " + side + " order");
     }
 
     @Override
     public void cancelOrder(String API, String clientOrderId) throws IOException {
-        Order cancelOrder = orderRepository.findOrderByClientOrderId(clientOrderId);
-        orderRepository.delete(cancelOrder);
+        ActiveOrders activeOrder = activeOrdersRepository.findByClientOrderId(clientOrderId);
+        Order order = orderRepository.findByClientOrderId(clientOrderId);
+        order.setStatus("canceled");
+
+        activeOrdersRepository.delete(activeOrder);
         log.info("order has been canceled: " + clientOrderId);
     }
 
