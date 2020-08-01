@@ -7,6 +7,13 @@ import org.springframework.data.mongodb.core.mapping.Field;
 
 import javax.validation.constraints.NotNull;
 
+/**
+ * Class that represents user's balance
+ *
+ * @author Kurilko Artemii
+ * @version 1.0
+ */
+
 @Getter
 @Setter
 @Document(collection = "balance")

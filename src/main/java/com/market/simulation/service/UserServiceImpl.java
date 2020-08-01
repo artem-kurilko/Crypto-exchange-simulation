@@ -6,6 +6,7 @@ import com.market.simulation.repository.UserRepository;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 /**
  * Implementation of {@link UserService} interface
@@ -14,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
  * @version 1.0
  */
 
+@Service
 public class UserServiceImpl implements UserService{
 
     private final UserRepository userRepository;

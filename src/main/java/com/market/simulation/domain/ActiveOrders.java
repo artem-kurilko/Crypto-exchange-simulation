@@ -12,4 +12,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Document(collection = "product")
 public class ActiveOrders extends Order {
 
+    public ActiveOrders(Long userId, String clientOrderId, String symbol, String side, String quantity, String price, String createdAt, String cumQuantity, String status) {
+        super(userId, clientOrderId, symbol, side, quantity, price, createdAt, cumQuantity, status);
+    }
 }

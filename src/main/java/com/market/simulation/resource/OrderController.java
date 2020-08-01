@@ -12,6 +12,13 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.constraints.NotNull;
 import java.io.IOException;
 
+/**
+ * REST controller for {@link com.market.simulation.domain.Order} class.
+ *
+ * @author Kurilko Artemii
+ * @version 1.0
+ */
+
 @RestController
 @RequestMapping("http://localhost:8080")
 public class OrderController {
