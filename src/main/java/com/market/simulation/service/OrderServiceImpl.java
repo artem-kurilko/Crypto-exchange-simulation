@@ -1,9 +1,7 @@
 package com.market.simulation.service;
 
-import com.market.simulation.domain.ActiveOrders;
 import com.market.simulation.domain.Balance;
 import com.market.simulation.domain.Order;
-import com.market.simulation.repository.ActiveOrdersRepository;
 import com.market.simulation.repository.BalanceRepository;
 import com.market.simulation.repository.OrderRepository;
 import org.apache.commons.math3.util.Precision;

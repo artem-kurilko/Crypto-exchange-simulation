@@ -16,4 +16,5 @@ public interface OrderService {
     void cancelOrder(String API, String clientOrderId) throws IOException;
 
     String getAveragePrice(String symbol) throws IOException;
+
 }

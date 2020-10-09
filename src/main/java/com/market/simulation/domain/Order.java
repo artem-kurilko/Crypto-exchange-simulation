@@ -8,7 +8,7 @@ import org.springframework.data.mongodb.core.mapping.Field;
 import javax.validation.constraints.NotNull;
 
 /**
- * Class that represents user order
+ * Class that represents user's order
  *
  * @author Artemii Kurilko
  * @version 1.0
