@@ -15,6 +15,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
 
-    @Query("select u from user u where u.api = ?1")
-    User findUserByAPI(String API);
+    @Query("select u from User u where u.key = ?1")
+    User findUserByKey(String key);
+
 }

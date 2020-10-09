@@ -2,8 +2,7 @@ package com.market.simulation.domain.orderstream;
 
 import com.market.simulation.service.orderstream.BinanceApiWebSocketClient;
 import com.market.simulation.service.orderstream.BinanceApiWebSocketClientImpl;
-
-import static com.market.simulation.domain.User.getSharedClient;
+import okhttp3.OkHttpClient;
 
 /**
  * A factory for creating BinanceApi client objects.
@@ -56,7 +55,7 @@ public class BinanceApiClientFactory {
      * Creates a new web socket client used for handling data streams.
      */
     public BinanceApiWebSocketClient newWebSocketClient() {
-        return new BinanceApiWebSocketClientImpl(getSharedClient());
+        return new BinanceApiWebSocketClientImpl(new OkHttpClient());
     }
 }
 

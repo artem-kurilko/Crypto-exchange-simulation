@@ -2,8 +2,6 @@ package com.market.simulation.service;
 
 import com.market.simulation.domain.User;
 import com.market.simulation.exception.UserNotFoundException;
-import org.json.JSONArray;
-import org.json.JSONObject;
 
 /**
  * Service interface for {@link com.market.simulation.domain.User} class.
@@ -13,21 +11,25 @@ import org.json.JSONObject;
  */
 
 public interface UserService {
-    User getUserByApi(String API) throws UserNotFoundException;
 
-    JSONArray getActiveOrders(String API);
+    /**
+     * Returns user by given key.
+     * @param key user's key
+     * @return User instance.
+     */
+    User findUserByKey(String key) throws UserNotFoundException;
 
-    JSONObject getLastActiveOrder(String API);
+    /**
+     * Returns user's btc balance.
+     * @param key user's key
+     * @return float value.
+     */
+    float getBTCBalance(String key) throws UserNotFoundException;
 
-    JSONArray getTradeHistory(String API);
+    /**
+     * Returns user's usdt balance.
+     * @return float value.
+     */
+    float getUSDTBalance(String key) throws UserNotFoundException;
 
-    JSONObject getLastTradeHistory(String API);
-
-    String getBalance(String API, String currency);
-
-    String getUSDTBalance(String API);
-
-    String getBTCBalance(String API);
-
-    String getETHBalance(String API);
 }

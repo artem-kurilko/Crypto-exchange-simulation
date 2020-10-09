@@ -1,5 +1,8 @@
 package com.market.simulation.service;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import java.io.IOException;
 
 /**
@@ -11,10 +14,18 @@ import java.io.IOException;
 
 public interface OrderService {
 
-    void createOrder(Long userId, String API, String symbol, String side, String quantity, String price) throws IOException;
+    void createOrder(Long userId, String key, String symbol, String side, String quantity, String price) throws IOException;
 
-    void cancelOrder(String API, String clientOrderId) throws IOException;
+    void cancelOrder(String key, String clientOrderId) throws IOException;
 
     String getAveragePrice(String symbol) throws IOException;
+
+    JSONArray getActiveOrders(String key);
+
+    JSONObject getLastActiveOrder(String key);
+
+    JSONArray getTradeHistory(String key);
+
+    JSONObject getLastTradeHistory(String key);
 
 }

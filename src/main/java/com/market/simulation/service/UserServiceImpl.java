@@ -3,8 +3,6 @@ package com.market.simulation.service;
 import com.market.simulation.domain.User;
 import com.market.simulation.exception.UserNotFoundException;
 import com.market.simulation.repository.UserRepository;
-import org.json.JSONArray;
-import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,7 +14,7 @@ import org.springframework.stereotype.Service;
  */
 
 @Service
-public class UserServiceImpl implements UserService{
+public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
 
@@ -26,52 +24,23 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public User getUserByApi(String API) throws UserNotFoundException{
-        User user = userRepository.findUserByAPI(API);
+    public User findUserByKey(String key) throws UserNotFoundException{
+        User user = userRepository.findUserByKey(key);
         if (user == null)
-            throw new UserNotFoundException("user not found");
+            throw new UserNotFoundException("User not found");
         else return user;
     }
 
     @Override
-    public JSONArray getActiveOrders(String API) {
-        User user = userRepository.findUserByAPI(API);
-        user.getId();
-        return null;
+    public float getBTCBalance(String key) throws UserNotFoundException {
+        User user = findUserByKey(key);
+        return user.getBtcBalance();
     }
 
     @Override
-    public JSONObject getLastActiveOrder(String API) {
-        return null;
+    public float getUSDTBalance(String key) throws UserNotFoundException {
+        User user = findUserByKey(key);
+        return user.getUsdtBalance();
     }
 
-    @Override
-    public JSONArray getTradeHistory(String API) {
-        return null;
-    }
-
-    @Override
-    public JSONObject getLastTradeHistory(String API) {
-        return null;
-    }
-
-    @Override
-    public String getBalance(String API, String currency) {
-        return null;
-    }
-
-    @Override
-    public String getUSDTBalance(String API) {
-        return null;
-    }
-
-    @Override
-    public String getBTCBalance(String API) {
-        return null;
-    }
-
-    @Override
-    public String getETHBalance(String API) {
-        return null;
-    }
 }
