@@ -60,6 +60,12 @@
             <scope>runtime</scope>
             <version>${mysql-connector.version}</version>
         </dependency>
+        <!-- Liquibase -->
+        <dependency>
+            <groupId>org.liquibase</groupId>
+            <artifactId>liquibase-core</artifactId>
+            <version>3.8.7</version>
+        </dependency>
         <!-- HttpClient -->
         <dependency>
             <groupId>org.apache.httpcomponents</groupId>

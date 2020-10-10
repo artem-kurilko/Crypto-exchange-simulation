@@ -20,14 +20,10 @@ DELETE /delete
 delete order, mandatory parameter string client order id
 
 # This program supports such requests:
-- getting current average price
-- getting active orders
-- placing order/orders
-- showing market orders
-- canceling order/orders
+- get current average price
+- get active orders
+- get orders history
+- place/cancel orders
+- show market orders
 
 You can use multi threads to test your parameters more efficiently.
-
-
-Tasks:
-- decide how to separate user and order controller
