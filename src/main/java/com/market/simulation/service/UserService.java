@@ -20,16 +20,29 @@ public interface UserService {
     User findUserByKey(String key) throws UserNotFoundException;
 
     /**
-     * Returns user's btc balance.
+     * Returns user's free btc balance.
      * @param key user's key
      * @return float value.
      */
-    float getBTCBalance(String key) throws UserNotFoundException;
+    float getFreeBTCBalance(String key) throws UserNotFoundException;
 
     /**
-     * Returns user's usdt balance.
+     * Returns user's reserved btc balance.
+     * @param key user's key
      * @return float value.
      */
-    float getUSDTBalance(String key) throws UserNotFoundException;
+    float getReservedBTCBalance(String key) throws UserNotFoundException;
+
+    /**
+     * Returns user's free usdt balance.
+     * @return float value.
+     */
+    float getFreeUSDTBalance(String key) throws UserNotFoundException;
+
+    /**
+     * Returns user's reserved usdt balance.
+     * @return float value.
+     */
+    float getReservedUSDTBalance(String key) throws UserNotFoundException;
 
 }

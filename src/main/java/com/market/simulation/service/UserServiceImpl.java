@@ -32,15 +32,23 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public float getBTCBalance(String key) throws UserNotFoundException {
-        User user = findUserByKey(key);
-        return user.getBtcBalance();
+    public float getFreeBTCBalance(String key) throws UserNotFoundException {
+        return findUserByKey(key).getBtcBalanceFree();
     }
 
     @Override
-    public float getUSDTBalance(String key) throws UserNotFoundException {
-        User user = findUserByKey(key);
-        return user.getUsdtBalance();
+    public float getReservedBTCBalance(String key) throws UserNotFoundException {
+        return findUserByKey(key).getBtcBalanceReserved();
+    }
+
+    @Override
+    public float getFreeUSDTBalance(String key) throws UserNotFoundException {
+        return findUserByKey(key).getUsdtBalanceFree();
+    }
+
+    @Override
+    public float getReservedUSDTBalance(String key) throws UserNotFoundException {
+        return findUserByKey(key).getUsdtBalanceReserved();
     }
 
 }

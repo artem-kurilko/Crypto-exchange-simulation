@@ -35,15 +35,27 @@ public class UserController {
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
-    @GetMapping("/balance/btc")
-    public ResponseEntity<String> getBTCBalance(@RequestParam @NotNull String key) throws UserNotFoundException {
-        float btcBalance = userServiceImpl.getBTCBalance(key);
+    @GetMapping("/balance/btc/free")
+    public ResponseEntity<String> getFreeBTCBalance(@RequestParam @NotNull String key) throws UserNotFoundException {
+        float btcBalance = userServiceImpl.getFreeBTCBalance(key);
         return new ResponseEntity<>(String.valueOf(btcBalance), HttpStatus.OK);
     }
 
-    @GetMapping("/balance/usdt")
-    public ResponseEntity<String> getUSDTBalance(@RequestParam @NotNull String key) throws UserNotFoundException {
-        float usdtBalance = userServiceImpl.getUSDTBalance(key);
+    @GetMapping("/balance/btc/reserved")
+    public ResponseEntity<String> getReservedBTCBalance(@RequestParam @NotNull String key) throws UserNotFoundException {
+        float btcBalance = userServiceImpl.getReservedBTCBalance(key);
+        return new ResponseEntity<>(String.valueOf(btcBalance), HttpStatus.OK);
+    }
+
+    @GetMapping("/balance/usdt/free")
+    public ResponseEntity<String> getFreeUSDTBalance(@RequestParam @NotNull String key) throws UserNotFoundException {
+        float usdtBalance = userServiceImpl.getFreeUSDTBalance(key);
+        return new ResponseEntity<>(String.valueOf(usdtBalance), HttpStatus.OK);
+    }
+
+    @GetMapping("/balance/usdt/reserved")
+    public ResponseEntity<String> getReservedUSDTBalance(@RequestParam @NotNull String key) throws UserNotFoundException {
+        float usdtBalance = userServiceImpl.getReservedUSDTBalance(key);
         return new ResponseEntity<>(String.valueOf(usdtBalance), HttpStatus.OK);
     }
 
