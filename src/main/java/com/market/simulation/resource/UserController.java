@@ -15,7 +15,7 @@ import javax.validation.constraints.NotNull;
 /**
  * REST controller for {@link com.market.simulation.domain.User} class.
  *
- * @author Eugene Suleimanov
+ * @author Kurilko Artemii
  * @version 1.0
  */
 

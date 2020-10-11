@@ -23,8 +23,12 @@ public class User extends BaseEntity{
 
     private String key;
 
-    private float btcBalance;
+    private float btcBalanceFree;
 
-    private float usdtBalance;
+    private float btcBalanceReserved;
+
+    private float usdtBalanceFree;
+
+    private float usdtBalanceReserved;
 
 }
