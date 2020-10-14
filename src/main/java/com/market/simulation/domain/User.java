@@ -4,7 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.Entity;
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 /**
  * Class that represents user
@@ -15,20 +16,32 @@ import javax.persistence.Entity;
 
 @Getter
 @Setter
-@Entity
 @AllArgsConstructor
-public class User extends BaseEntity{
+@Entity
+public class User {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @NotNull
+    @Column(name = "name")
     private String name;
 
-    private String key;
-
+    @NotNull
+    @Column(name = "btc_balance_free")
     private float btcBalanceFree;
 
+    @NotNull
+    @Column(name = "btc_balance_reserved")
     private float btcBalanceReserved;
 
+    @NotNull
+    @Column(name = "usdt_balance_free")
     private float usdtBalanceFree;
 
+    @NotNull
+    @Column(name = "usdt_balance_reserved")
     private float usdtBalanceReserved;
 
 }

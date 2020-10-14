@@ -1,4 +1,4 @@
-package com.market.simulation.service.orderstream;
+package com.market.simulation.services.orderstream;
 
 /**
  * BinanceApiCallback is a functional interface used together with the BinanceApiAsyncClient to provide a non-blocking REST client.

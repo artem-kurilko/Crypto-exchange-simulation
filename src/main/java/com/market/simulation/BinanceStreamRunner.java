@@ -2,8 +2,8 @@ package com.market.simulation;
 
 import com.market.simulation.domain.orderstream.AggTradeEvent;
 import com.market.simulation.domain.orderstream.BinanceApiClientFactory;
-import com.market.simulation.service.orderstream.BinanceApiCallback;
-import com.market.simulation.service.orderstream.BinanceApiWebSocketClient;
+import com.market.simulation.services.orderstream.BinanceApiCallback;
+import com.market.simulation.services.orderstream.BinanceApiWebSocketClient;
 
 import java.io.Closeable;
 import java.io.IOException;

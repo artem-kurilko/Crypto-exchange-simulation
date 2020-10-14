@@ -3,23 +3,22 @@ package com.market.simulation.domain;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
-
-import javax.persistence.Entity;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 /**
- * Class that represents order
+ * Class that represents order.
  *
  * @author Artemii Kurilko
  * @version 1.0
  */
 
-@Entity
 @Getter
 @Setter
 @AllArgsConstructor
-public class Order extends BaseEntity {
+@Document(collection = "orders")
+public class Order {
 
-    private String clientOrderId;
+    private Long clientOrderId;
 
     private String symbol;
 
@@ -27,12 +26,12 @@ public class Order extends BaseEntity {
 
     private String status;
 
-    private String quantity;
+    private float quantity;
 
-    private String price;
+    private float price;
 
-    private String cumQuantity;
+    private float cumQuantity;
 
-    private String createdAt;
+    private Long createdAt;
 
 }

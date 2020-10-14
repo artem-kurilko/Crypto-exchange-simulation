@@ -1,4 +1,4 @@
-package com.market.simulation.service;
+package com.market.simulation.services;
 
 import com.market.simulation.domain.User;
 import com.market.simulation.exception.UserNotFoundException;
@@ -23,32 +23,31 @@ public class UserServiceImpl implements UserService {
         this.userRepository = userRepository;
     }
 
-    @Override
-    public User findUserByKey(String key) throws UserNotFoundException{
-        User user = userRepository.findUserByKey(key);
+    public User findUserById(Long userId) throws UserNotFoundException {
+        User user = userRepository.findById(userId).orElseThrow(() -> new UserNotFoundException("User with id: " + userId + " not found"));
         if (user == null)
             throw new UserNotFoundException("User not found");
         else return user;
     }
 
     @Override
-    public float getFreeBTCBalance(String key) throws UserNotFoundException {
-        return findUserByKey(key).getBtcBalanceFree();
+    public float getFreeBTCBalance(Long userId) throws UserNotFoundException {
+        return findUserById(userId).getBtcBalanceFree();
     }
 
     @Override
-    public float getReservedBTCBalance(String key) throws UserNotFoundException {
-        return findUserByKey(key).getBtcBalanceReserved();
+    public float getReservedBTCBalance(Long userId) throws UserNotFoundException {
+        return findUserById(userId).getBtcBalanceReserved();
     }
 
     @Override
-    public float getFreeUSDTBalance(String key) throws UserNotFoundException {
-        return findUserByKey(key).getUsdtBalanceFree();
+    public float getFreeUSDTBalance(Long userId) throws UserNotFoundException {
+        return findUserById(userId).getUsdtBalanceFree();
     }
 
     @Override
-    public float getReservedUSDTBalance(String key) throws UserNotFoundException {
-        return findUserByKey(key).getUsdtBalanceReserved();
+    public float getReservedUSDTBalance(Long userId) throws UserNotFoundException {
+        return findUserById(userId).getUsdtBalanceReserved();
     }
 
 }

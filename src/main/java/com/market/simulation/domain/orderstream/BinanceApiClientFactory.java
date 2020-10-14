@@ -1,7 +1,7 @@
 package com.market.simulation.domain.orderstream;
 
-import com.market.simulation.service.orderstream.BinanceApiWebSocketClient;
-import com.market.simulation.service.orderstream.BinanceApiWebSocketClientImpl;
+import com.market.simulation.services.orderstream.BinanceApiWebSocketClient;
+import com.market.simulation.services.orderstream.BinanceApiWebSocketClientImpl;
 import okhttp3.OkHttpClient;
 
 /**

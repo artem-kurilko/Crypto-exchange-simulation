@@ -1,4 +1,4 @@
-package com.market.simulation.service.orderstream;
+package com.market.simulation.services.orderstream;
 
 import com.market.simulation.domain.orderstream.AggTradeEvent;
 

@@ -2,7 +2,7 @@ package com.market.simulation.resource;
 
 import com.market.simulation.domain.User;
 import com.market.simulation.exception.UserNotFoundException;
-import com.market.simulation.service.UserServiceImpl;
+import com.market.simulation.services.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -30,32 +30,32 @@ public class UserController {
     }
 
     @GetMapping("/user")
-    public ResponseEntity<User> getUserData(@RequestParam @NotNull String key) throws UserNotFoundException {
-        User user = userServiceImpl.findUserByKey(key);
+    public ResponseEntity<User> getUserData(@RequestParam @NotNull Long userId) throws UserNotFoundException {
+        User user = userServiceImpl.findUserById(userId);
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
     @GetMapping("/balance/btc/free")
-    public ResponseEntity<String> getFreeBTCBalance(@RequestParam @NotNull String key) throws UserNotFoundException {
-        float btcBalance = userServiceImpl.getFreeBTCBalance(key);
+    public ResponseEntity<String> getFreeBTCBalance(@RequestParam @NotNull Long userId) throws UserNotFoundException {
+        float btcBalance = userServiceImpl.getFreeBTCBalance(userId);
         return new ResponseEntity<>(String.valueOf(btcBalance), HttpStatus.OK);
     }
 
     @GetMapping("/balance/btc/reserved")
-    public ResponseEntity<String> getReservedBTCBalance(@RequestParam @NotNull String key) throws UserNotFoundException {
-        float btcBalance = userServiceImpl.getReservedBTCBalance(key);
+    public ResponseEntity<String> getReservedBTCBalance(@RequestParam @NotNull Long userId) throws UserNotFoundException {
+        float btcBalance = userServiceImpl.getReservedBTCBalance(userId);
         return new ResponseEntity<>(String.valueOf(btcBalance), HttpStatus.OK);
     }
 
     @GetMapping("/balance/usdt/free")
-    public ResponseEntity<String> getFreeUSDTBalance(@RequestParam @NotNull String key) throws UserNotFoundException {
-        float usdtBalance = userServiceImpl.getFreeUSDTBalance(key);
+    public ResponseEntity<String> getFreeUSDTBalance(@RequestParam @NotNull Long userId) throws UserNotFoundException {
+        float usdtBalance = userServiceImpl.getFreeUSDTBalance(userId);
         return new ResponseEntity<>(String.valueOf(usdtBalance), HttpStatus.OK);
     }
 
     @GetMapping("/balance/usdt/reserved")
-    public ResponseEntity<String> getReservedUSDTBalance(@RequestParam @NotNull String key) throws UserNotFoundException {
-        float usdtBalance = userServiceImpl.getReservedUSDTBalance(key);
+    public ResponseEntity<String> getReservedUSDTBalance(@RequestParam @NotNull Long userId) throws UserNotFoundException {
+        float usdtBalance = userServiceImpl.getReservedUSDTBalance(userId);
         return new ResponseEntity<>(String.valueOf(usdtBalance), HttpStatus.OK);
     }
 
