@@ -3,6 +3,7 @@ package com.market.simulation.services;
 import com.market.simulation.domain.ActiveOrders;
 import com.market.simulation.domain.Order;
 import com.market.simulation.domain.OrderStatus;
+import com.market.simulation.exception.SymbolNotFoundException;
 import com.market.simulation.exception.UserNotFoundException;
 import com.market.simulation.repository.ActiveOrdersRepository;
 import com.market.simulation.repository.OrderRepository;
@@ -22,30 +23,42 @@ import java.sql.Timestamp;
 
 @Service
 public class OrderServiceImpl implements OrderService {
+    private final UserServiceImpl userService;
     private final OrderRepository orderRepository;
     private final ActiveOrdersRepository activeOrdersRepository;
     private final OrdersHistoryRepository ordersHistoryRepository;
 
     @Autowired
-    public OrderServiceImpl(OrderRepository orderRepository, ActiveOrdersRepository activeOrdersRepository, OrdersHistoryRepository ordersHistoryRepository) {
+    public OrderServiceImpl(UserServiceImpl userService,
+                            OrderRepository orderRepository,
+                            ActiveOrdersRepository activeOrdersRepository,
+                            OrdersHistoryRepository ordersHistoryRepository) {
+        this.userService = userService;
         this.orderRepository = orderRepository;
         this.activeOrdersRepository = activeOrdersRepository;
         this.ordersHistoryRepository = ordersHistoryRepository;
     }
 
     @Override
-    public void placeOrder(Long userId, boolean isBuy, String side, float price, float quantity) {
-        String symbol = "BTCUSDT";
+    public void placeOrder(Long userId, boolean isBuy, String side, float price, float quantity) throws SymbolNotFoundException, UserNotFoundException {
+        String currencyPair = "BTCUSDT";
+        String symbol = isBuy ? "USDT" : "BTC";
         float cumQuantity = (float) 0.0;
         Long createdAt = new Timestamp(System.currentTimeMillis()).getTime();
-        Order order = new Order(userId, symbol, side, OrderStatus.NEW, quantity, price, cumQuantity, createdAt);
+
+        Order order = new Order(userId, currencyPair, side, OrderStatus.NEW, quantity, price, cumQuantity, createdAt);
         orderRepository.save(order);
+        userService.transferCurrency(userId, symbol, true, quantity);
     }
 
     @Override
-    public void cancelOrder(Long userId, Long orderId) throws UserNotFoundException {
+    public void cancelOrder(Long userId, Long orderId) throws UserNotFoundException, SymbolNotFoundException {
         ActiveOrders activeOrder = activeOrdersRepository.findById(orderId).orElseThrow(() -> new UserNotFoundException("User with id: " + userId + " not found."));
+        String symbol = activeOrder.getSide().equals("buy") ? "USDT" : "BTC";
+        float quantity = activeOrder.getQuantity();
+
         activeOrdersRepository.delete(activeOrder);
+        userService.transferCurrency(userId, symbol, true, quantity);
     }
 
     @Override

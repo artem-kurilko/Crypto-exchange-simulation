@@ -13,9 +13,6 @@ databaseChangeLog:
                 - column: { name: usdt_balance_free, type: float, constraints: { nullable: false } }
                 - column: { name: usdt_balance_reserved, type: float, constraints: { nullable: false } }
 
-        - addUniqueConstraint:
-            columnNames: key
-            tableName: user
         - addAutoIncrement:
             columnNames: id
             columnDataType: long

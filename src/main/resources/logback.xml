@@ -1,19 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
-    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+    <appender name="STDOUT"
+              class="ch.qos.logback.core.ConsoleAppender">
+        <!-- encoders are assigned the type ch.qos.logback.classic.encoder.PatternLayoutEncoder
+            by default -->
         <encoder>
-            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n
-            </pattern>
+            <pattern>%d{dd.MM.yyyy HH:mm:ss.SSS} [%thread] %-5level  %logger{20} - %msg%n</pattern>
         </encoder>
     </appender>
 
-    <logger name="org.springframework" level="WARN" />
-    <logger name="org.springframework.transaction" level="WARN" />
+    <appender name="FILE"
+              class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>server.log</file>
+        <rollingPolicy
+                class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!-- daily rollover -->
+            <fileNamePattern>server.%d{yyyy-MM-dd}.log</fileNamePattern>
 
-    <!-- in order to debug some marshalling issues, this needs to be TRACE -->
-    <logger name="org.springframework.web.servlet.mvc" level="WARN" />
+            <!-- Храним файлы логов 10 дней -->
+            <maxHistory>10</maxHistory>
 
-    <root level="INFO">
+            <!-- Максимальный размер файлов лога 30 гигабайт -->
+            <totalSizeCap>10GB</totalSizeCap>
+
+        </rollingPolicy>
+        <encoder>
+            <pattern>%d{dd.MM.yyyy HH:mm:ss.SSS} [%thread] %-5level  %logger{20} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <root level="info">
         <appender-ref ref="STDOUT" />
+        <appender-ref ref="FILE" />
     </root>
 </configuration>

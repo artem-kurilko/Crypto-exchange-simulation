@@ -1,13 +1,15 @@
 package com.market.simulation.services;
 
+import com.market.simulation.exception.SymbolNotFoundException;
 import com.market.simulation.exception.UserNotFoundException;
 import org.json.JSONArray;
 
 /**
- * Service interface for {@link com.market.simulation.domain.Order} class.
+ * Service interface for {@link com.market.simulation.domain.Order} class,
  *
  * @author Kurilko Artemii
  * @version 1.0
+ * @see com.market.simulation.services.OrderServiceImpl
  */
 
 public interface OrderService {
@@ -16,14 +18,14 @@ public interface OrderService {
      * Is used to place buy/sell order.
      * @param isBuy boolean
      */
-    void placeOrder(Long userId, boolean isBuy, String side, float price, float quantity);
+    void placeOrder(Long userId, boolean isBuy, String side, float price, float quantity) throws SymbolNotFoundException, UserNotFoundException;
 
     /**
      * Is used to cancel user's active order by given id.
      * @param userId user id
      * @throws UserNotFoundException if {@code userId} not found
      */
-    void cancelOrder(Long userId, Long orderId) throws UserNotFoundException;
+    void cancelOrder(Long userId, Long orderId) throws UserNotFoundException, SymbolNotFoundException;
 
     /**
      * Returns user's active orders.
