@@ -8,12 +8,13 @@ import org.springframework.web.bind.annotation.ResponseStatus;
  *
  * @author Kurilko Artemii
  * @version 1.0
+ * @see com.market.simulation.services.OrderServiceImpl
  */
 
 @ResponseStatus(value = HttpStatus.BAD_REQUEST)
-public class SymbolNotFoundException extends Exception{
+public class OrderNotFoundException extends RuntimeException{
 
-    public SymbolNotFoundException(String message){
+    public OrderNotFoundException(String message){
         super(message);
     }
 

@@ -35,13 +35,13 @@ public class OrderController {
                            @RequestParam @NotNull boolean isBuy,
                            @RequestParam @NotNull String side,
                            @RequestParam @NotNull String price,
-                           @RequestParam @NotNull String quantity){
+                           @RequestParam @NotNull String quantity) throws SymbolNotFoundException, UserNotFoundException {
         orderService.placeOrder(parseLong(userId), isBuy, side, parseFloat(price), parseFloat(quantity));
     }
 
     @DeleteMapping("/order")
     public void cancelOrder(@RequestParam @NotNull Long userId,
-                            @RequestParam @NotNull Long orderId) throws UserNotFoundException {
+                            @RequestParam @NotNull Long orderId) throws UserNotFoundException, SymbolNotFoundException {
         orderService.cancelOrder(userId, orderId);
     }
 

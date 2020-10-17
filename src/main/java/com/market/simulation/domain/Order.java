@@ -10,6 +10,8 @@ import org.springframework.data.mongodb.core.mapping.Document;
  *
  * @author Artemii Kurilko
  * @version 1.0
+ * @see com.market.simulation.repository.OrderRepository
+ * @see com.market.simulation.services.OrderServiceImpl
  */
 
 @Getter

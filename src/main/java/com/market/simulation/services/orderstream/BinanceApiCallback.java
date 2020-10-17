@@ -1,9 +1,14 @@
 package com.market.simulation.services.orderstream;
 
+import com.market.simulation.exception.UserNotFoundException;
+
 /**
  * BinanceApiCallback is a functional interface used together with the BinanceApiAsyncClient to provide a non-blocking REST client.
  *
  * @param <T> the return type from the callback
+ *
+ * @author Artemii Kurilko
+ * @version 1.0
  */
 
 @FunctionalInterface
@@ -14,7 +19,7 @@ public interface BinanceApiCallback<T> {
      *
      * @param response the expected response object
      */
-    void onResponse(T response);
+    void onResponse(T response) throws UserNotFoundException, SymbolNotFoundException;
 
     /**
      * Called whenever an error occurs.
@@ -22,4 +27,5 @@ public interface BinanceApiCallback<T> {
      * @param cause the cause of the failure
      */
     default void onFailure(Throwable cause) {}
+
 }

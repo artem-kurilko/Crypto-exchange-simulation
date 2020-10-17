@@ -1,6 +1,5 @@
 package com.market.simulation.services;
 
-import com.market.simulation.exception.SymbolNotFoundException;
 import com.market.simulation.exception.UserNotFoundException;
 
 /**

@@ -3,7 +3,8 @@ package com.market.simulation.services;
 import com.market.simulation.domain.ActiveOrders;
 import com.market.simulation.domain.Order;
 import com.market.simulation.domain.OrderStatus;
-import com.market.simulation.exception.SymbolNotFoundException;
+import com.market.simulation.domain.OrdersHistory;
+import com.market.simulation.exception.OrderNotFoundException;
 import com.market.simulation.exception.UserNotFoundException;
 import com.market.simulation.repository.ActiveOrdersRepository;
 import com.market.simulation.repository.OrderRepository;
@@ -19,6 +20,7 @@ import java.sql.Timestamp;
  *
  * @author Artemii Kurilko
  * @version 1.0
+ * @see com.market.simulation.resource.OrderController
  */
 
 @Service
@@ -40,7 +42,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public void placeOrder(Long userId, boolean isBuy, String side, float price, float quantity) throws SymbolNotFoundException, UserNotFoundException {
+    public void placeOrder(Long userId, boolean isBuy, String side, float price, float quantity) throws UserNotFoundException {
         String currencyPair = "BTCUSDT";
         String symbol = isBuy ? "USDT" : "BTC";
         float cumQuantity = (float) 0.0;
@@ -52,13 +54,21 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public void cancelOrder(Long userId, Long orderId) throws UserNotFoundException, SymbolNotFoundException {
+    public void cancelOrder(Long userId, Long orderId, boolean isExecuted) throws UserNotFoundException {
         ActiveOrders activeOrder = activeOrdersRepository.findById(orderId).orElseThrow(() -> new UserNotFoundException("User with id: " + userId + " not found."));
         String symbol = activeOrder.getSide().equals("buy") ? "USDT" : "BTC";
         float quantity = activeOrder.getQuantity();
-
         activeOrdersRepository.delete(activeOrder);
-        userService.transferCurrency(userId, symbol, true, quantity);
+
+        if (!isExecuted)
+            userService.transferCurrency(userId, symbol, true, quantity);
+    }
+
+    @Override
+    public void executeActiveOrder(Long userId, Long orderId) throws UserNotFoundException, OrderNotFoundException {
+        OrdersHistory order = (OrdersHistory) orderRepository.findById(orderId).orElseThrow(() -> new OrderNotFoundException("Order with id: " + orderId + " not found."));
+        ordersHistoryRepository.save(order);
+        cancelOrder(userId, orderId, true);
     }
 
     @Override

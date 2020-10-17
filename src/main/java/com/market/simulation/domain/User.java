@@ -12,6 +12,8 @@ import javax.validation.constraints.NotNull;
  *
  * @author Artemii Kurilko
  * @version 1.0
+ * @see com.market.simulation.repository.UserRepository
+ * @see com.market.simulation.services.UserServiceImpl
  */
 
 @Getter

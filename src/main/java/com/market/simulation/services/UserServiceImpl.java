@@ -1,7 +1,6 @@
 package com.market.simulation.services;
 
 import com.market.simulation.domain.User;
-import com.market.simulation.exception.SymbolNotFoundException;
 import com.market.simulation.exception.UserNotFoundException;
 import com.market.simulation.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;

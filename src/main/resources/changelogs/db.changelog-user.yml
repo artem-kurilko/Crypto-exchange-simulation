@@ -7,7 +7,7 @@ databaseChangeLog:
             tableName: user
             columns:
                 - column: { name: id, type: long, autoIncrement: true, constraints: { primaryKey: true } }
-                - column: { name: name, constraints: {  nullable: false } }
+                - column: { name: name, type: varchar(255), constraints: {  nullable: false } }
                 - column: { name: btc_balance_free, type: float, constraints: { nullable: false } }
                 - column: { name: btc_balance_reserved, type: float, constraints: { nullable: false } }
                 - column: { name: usdt_balance_free, type: float, constraints: { nullable: false } }

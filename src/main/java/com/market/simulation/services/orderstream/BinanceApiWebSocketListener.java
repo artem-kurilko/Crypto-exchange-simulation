@@ -1,7 +1,6 @@
 package com.market.simulation.services.orderstream;
 
 
-import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectReader;
 import okhttp3.Response;
@@ -12,25 +11,21 @@ import java.io.IOException;
 
 /**
  * Binance API WebSocket listener.
+ *
+ * @author Artemii Kurilko
+ * @version 1.0
+ * @see com.market.simulation.services.orderstream.BinanceApiWebSocketClientImpl
  */
+
 public class BinanceApiWebSocketListener<T> extends WebSocketListener {
-
     private BinanceApiCallback<T> callback;
-
     private static final ObjectMapper mapper = new ObjectMapper();
-
     private final ObjectReader objectReader;
-
     private boolean closing = false;
 
     public BinanceApiWebSocketListener(BinanceApiCallback<T> callback, Class<T> eventClass) {
         this.callback = callback;
         this.objectReader = mapper.readerFor(eventClass);
-    }
-
-    public BinanceApiWebSocketListener(BinanceApiCallback<T> callback, TypeReference<T> eventTypeReference) {
-        this.callback = callback;
-        this.objectReader = mapper.readerFor(eventTypeReference);
     }
 
     @Override
@@ -54,4 +49,5 @@ public class BinanceApiWebSocketListener<T> extends WebSocketListener {
             callback.onFailure(t);
         }
     }
+
 }

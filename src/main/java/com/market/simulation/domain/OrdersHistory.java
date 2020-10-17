@@ -8,6 +8,8 @@ import org.springframework.data.mongodb.core.mapping.Document;
  *
  * @author Artemii Kurilko
  * @version 1.0
+ * @see com.market.simulation.repository.OrdersHistoryRepository
+ * @see com.market.simulation.services.OrderServiceImpl
  */
 
 @Document(collection = "ordersHistory")

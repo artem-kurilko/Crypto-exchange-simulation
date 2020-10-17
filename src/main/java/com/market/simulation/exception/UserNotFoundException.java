@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.ResponseStatus;
  *
  * @author Kurilko Artemii
  * @version 1.0
+ * @see com.market.simulation.services.UserServiceImpl
+ * @see com.market.simulation.services.OrderServiceImpl
  */
 
 @ResponseStatus(value = HttpStatus.BAD_REQUEST)
