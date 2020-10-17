@@ -1,6 +1,7 @@
 package com.market.simulation.services;
 
 import com.market.simulation.domain.User;
+import com.market.simulation.exception.SymbolNotFoundException;
 import com.market.simulation.exception.UserNotFoundException;
 import com.market.simulation.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,7 +52,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void transferCurrency(Long userId, String symbol, boolean isOrderCanceled, float quantity) throws SymbolNotFoundException, UserNotFoundException {
+    public void transferCurrency(Long userId, String symbol, boolean isOrderCanceled, float quantity) throws UserNotFoundException {
         User user = userRepository.findById(userId).orElseThrow(() -> new UserNotFoundException("User with id: " + userId + " not found"));
         float freeBalance;
         float reservedBalance;

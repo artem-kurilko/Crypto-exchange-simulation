@@ -3,6 +3,7 @@ package com.market.simulation.services.orderstream;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectReader;
+import com.market.simulation.exception.UserNotFoundException;
 import okhttp3.Response;
 import okhttp3.WebSocket;
 import okhttp3.WebSocketListener;
@@ -33,7 +34,7 @@ public class BinanceApiWebSocketListener<T> extends WebSocketListener {
         try {
             T event = objectReader.readValue(text);
             callback.onResponse(event);
-        } catch (IOException e) {
+        } catch (IOException | UserNotFoundException e) {
             e.printStackTrace();
         }
     }

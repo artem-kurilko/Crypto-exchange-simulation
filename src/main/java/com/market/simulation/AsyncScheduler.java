@@ -23,10 +23,10 @@ public class AsyncScheduler {
         this.matchingEngine = matchingEngine;
     }
 
-    @Scheduled(fixedDelay = 5000)
+    /*@Scheduled(fixedDelay = 5000)
     public void scheduleFixedDelayTask() throws IOException {
         matchingEngine.matchOrders();
         System.out.println("Fixed delay task - " + System.currentTimeMillis() / 1000);
     }
-
+*/
 }
