@@ -8,7 +8,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 /**
- * Class that represents user
+ * Class that represents user.
  *
  * @author Artemii Kurilko
  * @version 1.0

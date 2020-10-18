@@ -19,7 +19,7 @@ public interface BinanceApiCallback<T> {
      *
      * @param response the expected response object
      */
-    void onResponse(T response) throws UserNotFoundException;
+    void onResponse(T response) throws UserNotFoundException, InterruptedException;
 
     /**
      * Called whenever an error occurs.

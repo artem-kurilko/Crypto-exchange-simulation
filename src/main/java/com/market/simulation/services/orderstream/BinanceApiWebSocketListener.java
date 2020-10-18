@@ -34,7 +34,7 @@ public class BinanceApiWebSocketListener<T> extends WebSocketListener {
         try {
             T event = objectReader.readValue(text);
             callback.onResponse(event);
-        } catch (IOException | UserNotFoundException e) {
+        } catch (IOException | UserNotFoundException | InterruptedException e) {
             e.printStackTrace();
         }
     }

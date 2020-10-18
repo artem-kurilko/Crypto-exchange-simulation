@@ -29,6 +29,13 @@ public class UserController {
         this.userServiceImpl = userServiceImpl;
     }
 
+    @GetMapping("/hello")
+    public void sayHello(){
+        System.out.println("============================================");
+        System.out.println("                    HELLO");
+        System.out.println("============================================");
+    }
+
     @GetMapping("/user")
     public ResponseEntity<User> getUserData(@RequestParam @NotNull Long userId) throws UserNotFoundException {
         User user = userServiceImpl.findUserById(userId);

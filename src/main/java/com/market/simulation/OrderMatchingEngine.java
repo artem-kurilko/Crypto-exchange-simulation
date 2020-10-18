@@ -45,7 +45,6 @@ public class OrderMatchingEngine {
                 .build();
     }
 
-    // TODO: create orders matching
     // FIXME: understand if active orders iterator starts with the oldest order
     public void matchOrders() throws IOException {
         BinanceApiWebSocketClient client =  new BinanceApiWebSocketClientImpl(getSharedClient());
@@ -54,6 +53,7 @@ public class OrderMatchingEngine {
             @Override
             public void onResponse(BookTickerEvent response) throws UserNotFoundException {
                 JSONArray activeOrders = orderService.getActiveOrders(1L);
+
                 for (int i = 0; i < activeOrders.length(); i++){
                     JSONObject activeOrder = activeOrders.getJSONObject(i);
 
