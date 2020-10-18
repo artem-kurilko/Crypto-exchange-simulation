@@ -13,9 +13,9 @@ import org.springframework.data.mongodb.core.mapping.Document;
  */
 
 @Document(collection = "activeOrders")
-public class ActiveOrders extends Order {
+public class ActiveOrder extends Order {
 
-    public ActiveOrders(Long clientOrderId, String symbol, String side, String status, float quantity, float price, float cumQuantity, Long createdAt) {
+    public ActiveOrder(Long clientOrderId, String symbol, String side, String status, float quantity, float price, float cumQuantity, Long createdAt) {
         super(clientOrderId, symbol, side, status, quantity, price, cumQuantity, createdAt);
     }
 

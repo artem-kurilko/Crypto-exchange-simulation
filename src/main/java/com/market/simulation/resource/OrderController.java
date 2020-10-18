@@ -45,7 +45,7 @@ public class OrderController {
         orderService.cancelOrder(userId, orderId, false);
     }
 
-    @GetMapping("/activeOrders")
+    @GetMapping("/order")
     public ResponseEntity<JSONArray> getActiveOrders(Long userId){
         return new ResponseEntity<>(orderService.getActiveOrders(userId), HttpStatus.OK);
     }

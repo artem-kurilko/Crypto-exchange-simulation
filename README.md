@@ -1,29 +1,78 @@
-### Crypto market simulation ###
+# Crypto market simulation 
 
-This program shows real-time BTC-USDT price, also it simulates trades, using parsing open orders from HitBTC exchange.
-If your price and quantity matches any of open orders it can be executed fully or partially.
+This program simulates crypto exchange, getting current order book from Binance exchange and matching it with user's active orders.
+If your price and quantity matches any of order book it can be executed fully or partially.
 
 Base url: localhost:8080
 
-## Market simulation API: ##
+## Market simulation API: 
 
-GET /average-price
-get average price, mandatory parameter string currency pair, return string
+### Создание пользователя
+POST /user
 
-GET /open-orders
-get open orders, return json array
+**Необходимые параметры запроса:**
+* userId - идентификатор пользователя, тип Long
+* name - имя пользователя, тип String 
+* btcBalance - баланс биткоина, тип float
+* usdtBalance - баланс usdt, тип float
 
-POST /create
-create new order, mandatory parameters string side(buy or sell), string quantity, string size, string currency pair
+### Получить информацию о пользователе
 
-DELETE /delete
-delete order, mandatory parameter string client order id
+GET /user
 
-# This program supports such requests:
-- get current average price
-- get active orders
-- get orders history
-- place/cancel orders
-- show market orders
+**Необходимые параметры запроса:**
+* userId - идентификатор пользователя, тип Long
 
-You can use multi threads to test your parameters more efficiently.
+### Баланс пользователя
+
+Получить свободный баланс биткоина
+
+GET /balance/btc/free
+
+Получить зарезервированный баланс биткоина
+
+GET /balance/btc/reserved
+
+Получить свободный usdt баланс
+
+GET /balance/usdt/free
+
+Получить зарезервированный usdt баланс
+
+GET /balance/usdt/reserved
+
+**Необходимые параметры запроса:**
+* userId - идентификатор пользователя, тип Long
+
+### Разместить ордер
+
+POST /order
+
+**Необходимые параметры запроса:**
+* userId - идентификатор пользователя, тип Long
+* isBuy - если ордер на покупку, тип boolean
+* side - сторона ордер (buy/sell), тип string
+* price - цена, тип string 
+* quantity - количество, тип string
+
+### Отменить ордер
+
+DELETE /order
+
+**Необходимые параметры запроса:**
+* userId - идентификатор пользователя, тип Long
+* orderId - идентификатор ордера, тип Long
+
+### Получить активные ордера пользователя
+
+GET /order
+
+**Необходимые параметры запроса:**
+* userId - идентификатор пользователя, тип Long
+
+### Получить выполненные ордера пользователя
+
+GET /ordersHistory
+
+**Необходимые параметры запроса:**
+* userId - идентификатор пользователя, тип Long

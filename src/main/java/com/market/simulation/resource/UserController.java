@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -29,17 +30,18 @@ public class UserController {
         this.userServiceImpl = userServiceImpl;
     }
 
-    @GetMapping("/hello")
-    public void sayHello(){
-        System.out.println("============================================");
-        System.out.println("                    HELLO");
-        System.out.println("============================================");
-    }
-
     @GetMapping("/user")
     public ResponseEntity<User> getUserData(@RequestParam @NotNull Long userId) throws UserNotFoundException {
         User user = userServiceImpl.findUserById(userId);
         return new ResponseEntity<>(user, HttpStatus.OK);
+    }
+
+    @PostMapping("/user")
+    public void createUser(@RequestParam @NotNull Long userId,
+                                           @RequestParam @NotNull String name,
+                                           @RequestParam @NotNull float btcBalance,
+                                           @RequestParam @NotNull float usdtBalance) {
+        userServiceImpl.createUser(userId, name, btcBalance, usdtBalance);
     }
 
     @GetMapping("/balance/btc/free")

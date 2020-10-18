@@ -17,11 +17,14 @@ import java.io.Closeable;
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
+import static java.lang.Float.parseFloat;
+
 /**
  * Java class for matching user's active orders with binance order book.
  *
  * @author Artemii Kurilko
  * @version 1.0
+ * @see com.market.simulation.MarketSimulationRunner
  */
 
 @Component
@@ -54,15 +57,31 @@ public class OrderMatchingEngine {
             public void onResponse(BookTickerEvent response) throws UserNotFoundException {
                 JSONArray activeOrders = orderService.getActiveOrders(1L);
 
+                // Matches all active order starting from the oldest one with binance order book,
+                // using brute force algorithm
                 for (int i = 0; i < activeOrders.length(); i++){
                     JSONObject activeOrder = activeOrders.getJSONObject(i);
+                    float orderPrice = parseFloat(activeOrder.getString("price"));
+                    float orderQuantity = parseFloat(activeOrder.getString("quantity"));
 
                     if (activeOrder.getString("side").equals("buy")){
-                        if (activeOrder.getString("price").equals(response.getAskPrice()) && activeOrder.getString("quantity").equals(response.getAskQuantity()))
-                            orderService.executeActiveOrder(activeOrder.getLong("clientOrderId"), activeOrder.getLong("_id"));
+                        if (orderPrice >= parseFloat(response.getAskPrice())) {
+                            if (parseFloat(response.getAskQuantity()) >= orderQuantity)
+                                orderService.executeActiveOrder(activeOrder.getLong("clientOrderId"), activeOrder.getLong("_id"));
+                            else
+                                orderService.executeActiveOrderPartially(activeOrder.getLong("clientOrderId"),
+                                                                         activeOrder.getLong("_id"),
+                                                                         parseFloat(response.getAskQuantity()));
+                        }
                     } else if (activeOrder.getString("side").equals("sell")){
-                        if (activeOrder.getString("price").equals(response.getBidPrice()) && activeOrder.getString("quantity").equals(response.getBidQuantity()))
-                            orderService.executeActiveOrder(activeOrder.getLong("clientOrderId"), activeOrder.getLong("_id"));
+                        if (orderPrice <= parseFloat(response.getBidPrice())) {
+                            if (parseFloat(response.getBidQuantity()) >= orderQuantity)
+                                orderService.executeActiveOrder(activeOrder.getLong("clientOrderId"), activeOrder.getLong("_id"));
+                            else
+                                orderService.executeActiveOrderPartially(activeOrder.getLong("clientOrderId"),
+                                                                         activeOrder.getLong("_id"),
+                                                                         parseFloat(response.getAskQuantity()));
+                        }
                     }
                 }
             }

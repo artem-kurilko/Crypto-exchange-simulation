@@ -1,5 +1,6 @@
 package com.market.simulation.services;
 
+import com.market.simulation.exception.OrderNotFoundException;
 import com.market.simulation.exception.UserNotFoundException;
 import org.json.JSONArray;
 
@@ -25,9 +26,10 @@ public interface OrderService {
      * @param userId user id
      * @param orderId order id
      * @param isExecuted if order is executed
+     * @throws OrderNotFoundException if order with {@code orderId} not found
      * @throws UserNotFoundException if user not found by given {@code userId}
      */
-    void cancelOrder(Long userId, Long orderId, boolean isExecuted) throws UserNotFoundException;
+    void cancelOrder(Long userId, Long orderId, Long createdAt, boolean isExecuted) throws OrderNotFoundException, UserNotFoundException;
 
     /**
      * Executes active order and adds it to orders history.
@@ -35,8 +37,18 @@ public interface OrderService {
      * @param userId user id
      * @param orderId order id
      * @throws UserNotFoundException if user not found by given {@code userId}
+     * @throws OrderNotFoundException if order with {@code orderId} not found
      */
-    void executeActiveOrder(Long userId, Long orderId) throws UserNotFoundException;
+    void executeActiveOrder(Long userId, Long orderId) throws UserNotFoundException, OrderNotFoundException;
+
+    /**
+     * Executes active order partially.
+     *
+     * @param userId user id
+     * @param orderId order id
+     * @throws OrderNotFoundException if order with {@code orderId} not found
+     */
+    void executeActiveOrderPartially(Long userId, Long orderId, float quantity) throws OrderNotFoundException;
 
     /**
      * Returns user's active orders.

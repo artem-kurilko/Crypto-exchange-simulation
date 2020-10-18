@@ -24,6 +24,13 @@ public class UserServiceImpl implements UserService {
         this.userRepository = userRepository;
     }
 
+    @Override
+    public void createUser(Long userId, String name, float btcBalance, float usdtBalance) {
+        User user = new User(userId, name, btcBalance, 0.0F, usdtBalance, 0.0F);
+        userRepository.save(user);
+    }
+
+    @Override
     public User findUserById(Long userId) throws UserNotFoundException {
         User user = userRepository.findById(userId).orElseThrow(() -> new UserNotFoundException("User with id: " + userId + " not found"));
         if (user == null)
