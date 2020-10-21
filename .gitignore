@@ -1,4 +1,4 @@
 .idea/
 crypto-market-simaltion.iml
 target/
-server.log
+*.log

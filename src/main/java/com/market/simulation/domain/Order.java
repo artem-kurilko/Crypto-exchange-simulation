@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
 
 /**
  * Class that represents order.
@@ -20,20 +21,28 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Document(collection = "orders")
 public class Order {
 
+    @Field("clientOrderId")
     private Long clientOrderId;
 
+    @Field("symbol")
     private String symbol;
 
+    @Field("side")
     private String side;
 
+    @Field("status")
     private String status;
 
+    @Field("quantity")
     private float quantity;
 
+    @Field("price")
     private float price;
 
+    @Field("cumQuantity")
     private float cumQuantity;
 
+    @Field("createAt")
     private Long createdAt;
 
 }

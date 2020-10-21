@@ -46,4 +46,5 @@ public class BookTickerEvent {
         this.askPrice = askPrice;
         this.askQuantity = askQuantity;
     }
+
 }

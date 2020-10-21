@@ -2,6 +2,7 @@ package com.market.simulation.repository;
 
 import com.market.simulation.domain.Order;
 import org.springframework.data.mongodb.repository.MongoRepository;
+import org.springframework.data.mongodb.repository.Query;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -14,5 +15,8 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface OrderRepository extends MongoRepository<Order, Long> {
+
+    @Query("{ 'userId' : ?0, 'createdAt' : ?1 }")
+    Order findOrderByUserIdAnAndCreatedAt(Long userId, Long createdAt);
 
 }

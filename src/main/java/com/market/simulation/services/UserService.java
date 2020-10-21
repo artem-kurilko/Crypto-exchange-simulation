@@ -62,7 +62,7 @@ public interface UserService {
     float getReservedUSDTBalance(Long userId) throws UserNotFoundException;
 
     /**
-     * Used to transfer currency from free to reserved or vice versa,
+     * Used to transfer currency from free to reserved or vice versa if order is canceled,
      * changes currency balance if user place/cancel order.
      *
      * @param userId user id

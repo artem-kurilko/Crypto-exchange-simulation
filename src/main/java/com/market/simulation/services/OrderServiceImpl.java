@@ -1,9 +1,6 @@
 package com.market.simulation.services;
 
-import com.market.simulation.domain.ActiveOrder;
-import com.market.simulation.domain.Order;
-import com.market.simulation.domain.OrderStatus;
-import com.market.simulation.domain.OrderHistory;
+import com.market.simulation.domain.*;
 import com.market.simulation.exception.OrderNotFoundException;
 import com.market.simulation.exception.UserNotFoundException;
 import com.market.simulation.repository.ActiveOrdersRepository;
@@ -56,15 +53,15 @@ public class OrderServiceImpl implements OrderService {
         userService.transferCurrency(userId, symbol, true, quantity);
     }
 
-    // FIXME: we use activeOrders orderId, but we need also Order orderId
     @Override
-    public void cancelOrder(Long userId, Long orderId, Long createdAt, boolean isExecuted) throws OrderNotFoundException, UserNotFoundException {
+    public void cancelOrder(Long userId, Long orderId, boolean isExecuted) throws OrderNotFoundException, UserNotFoundException {
         ActiveOrder activeOrder = activeOrdersRepository.findById(orderId).orElseThrow(() -> new OrderNotFoundException("Order with id: " + orderId + " not found."));
-        Order order = orderRepository.findOne(Query.query(Criteria.where("userId").is(userId).and("createdAt").is(createdAt)), Order.class);
+        Long createdAt = activeOrder.getCreatedAt();
+        activeOrdersRepository.delete(activeOrder);
+        Order order = orderRepository.findOrderByUserIdAnAndCreatedAt(orderId, createdAt);
         order.setStatus(OrderStatus.CANCELED);
         String symbol = activeOrder.getSide().equals("buy") ? "USDT" : "BTC";
         float quantity = activeOrder.getQuantity();
-        activeOrdersRepository.delete(activeOrder);
 
         if (!isExecuted)
             userService.transferCurrency(userId, symbol, true, quantity);
@@ -72,18 +69,33 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public void executeActiveOrder(Long userId, Long orderId) throws UserNotFoundException, OrderNotFoundException {
-        OrderHistory order = (OrderHistory) orderRepository.findById(orderId).orElseThrow(() -> new OrderNotFoundException("Order with id: " + orderId + " not found."));
+        ActiveOrder activeOrder = activeOrdersRepository.findById(orderId).orElseThrow(() -> new OrderNotFoundException("Order with id: " + orderId + " not found."));
+        Order order = orderRepository.findOrderByUserIdAnAndCreatedAt(userId, activeOrder.getCreatedAt());
+        OrderHistory ordersHistory = (OrderHistory) order;
         order.setStatus(OrderStatus.FILLED);
-        ordersHistoryRepository.save(order);
+        ordersHistoryRepository.save(ordersHistory);
         cancelOrder(userId, orderId, true);
     }
 
-    // TODO: add partially filled status
     @Override
-    public void executeActiveOrderPartially(Long userId, Long orderId, float quantity) throws OrderNotFoundException {
+    public void executeActiveOrderPartially(Long userId, Long orderId, float quantity) throws OrderNotFoundException, UserNotFoundException {
         ActiveOrder activeOrder = (ActiveOrder) orderRepository.findById(orderId).orElseThrow(() -> new OrderNotFoundException("Order with id: " + orderId + " not found."));
         activeOrder.setCumQuantity(quantity);
-        activeOrder.setQuantity(activeOrder.getQuantity()-quantity);
+        activeOrder.setStatus(OrderStatus.PARTIALLY_FILLED);
+        Order order = orderRepository.findOrderByUserIdAnAndCreatedAt(userId, activeOrder.getCreatedAt());
+        order.setStatus(OrderStatus.PARTIALLY_FILLED);
+        String side = activeOrder.getSide();
+
+        User user = userService.findUserById(userId);
+
+        if (side.equals("buy")) {
+            float btcBalance = userService.getFreeBTCBalance(userId) + quantity / activeOrder.getPrice();
+            user.setBtcBalanceFree(btcBalance);
+        }
+        else {
+            float usdtBalance = userService.getFreeUSDTBalance(userId) + quantity * activeOrder.getPrice();
+            user.setUsdtBalanceFree(usdtBalance);
+        }
     }
 
     @Override

@@ -8,10 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
- * Implementation of {@link UserService} interface
+ * Implementation of {@link UserService} interface.
  *
  * @author Artemii Kurilko
  * @version 1.0
+ * @see com.market.simulation.resource.UserController
  */
 
 @Service

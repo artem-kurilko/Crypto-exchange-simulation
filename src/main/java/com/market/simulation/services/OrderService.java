@@ -29,7 +29,7 @@ public interface OrderService {
      * @throws OrderNotFoundException if order with {@code orderId} not found
      * @throws UserNotFoundException if user not found by given {@code userId}
      */
-    void cancelOrder(Long userId, Long orderId, Long createdAt, boolean isExecuted) throws OrderNotFoundException, UserNotFoundException;
+    void cancelOrder(Long userId, Long orderId, boolean isExecuted) throws OrderNotFoundException, UserNotFoundException;
 
     /**
      * Executes active order and adds it to orders history.
@@ -48,7 +48,7 @@ public interface OrderService {
      * @param orderId order id
      * @throws OrderNotFoundException if order with {@code orderId} not found
      */
-    void executeActiveOrderPartially(Long userId, Long orderId, float quantity) throws OrderNotFoundException;
+    void executeActiveOrderPartially(Long userId, Long orderId, float quantity) throws OrderNotFoundException, UserNotFoundException;
 
     /**
      * Returns user's active orders.
