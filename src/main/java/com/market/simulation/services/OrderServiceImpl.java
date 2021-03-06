@@ -8,12 +8,10 @@ import com.market.simulation.repository.OrderRepository;
 import com.market.simulation.repository.OrdersHistoryRepository;
 import org.json.JSONArray;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.mongodb.core.query.Criteria;
-import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
-import java.util.Optional;
+import java.util.stream.Stream;
 
 /**
  * Implementation of {@link com.market.simulation.services.OrderService} interface.
@@ -22,7 +20,6 @@ import java.util.Optional;
  * @version 1.0
  * @see com.market.simulation.resource.OrderController
  */
-
 @Service
 public class OrderServiceImpl implements OrderService {
     private final UserServiceImpl userService;
@@ -58,7 +55,7 @@ public class OrderServiceImpl implements OrderService {
         ActiveOrder activeOrder = activeOrdersRepository.findById(orderId).orElseThrow(() -> new OrderNotFoundException("Order with id: " + orderId + " not found."));
         Long createdAt = activeOrder.getCreatedAt();
         activeOrdersRepository.delete(activeOrder);
-        Order order = orderRepository.findOrderByUserIdAnAndCreatedAt(orderId, createdAt);
+        Order order = orderRepository.findOrderByUserIdAndCreatedAt(orderId, createdAt);
         order.setStatus(OrderStatus.CANCELED);
         String symbol = activeOrder.getSide().equals("buy") ? "USDT" : "BTC";
         float quantity = activeOrder.getQuantity();
@@ -70,7 +67,7 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public void executeActiveOrder(Long userId, Long orderId) throws UserNotFoundException, OrderNotFoundException {
         ActiveOrder activeOrder = activeOrdersRepository.findById(orderId).orElseThrow(() -> new OrderNotFoundException("Order with id: " + orderId + " not found."));
-        Order order = orderRepository.findOrderByUserIdAnAndCreatedAt(userId, activeOrder.getCreatedAt());
+        Order order = orderRepository.findOrderByUserIdAndCreatedAt(userId, activeOrder.getCreatedAt());
         OrderHistory ordersHistory = (OrderHistory) order;
         order.setStatus(OrderStatus.FILLED);
         ordersHistoryRepository.save(ordersHistory);
@@ -82,7 +79,7 @@ public class OrderServiceImpl implements OrderService {
         ActiveOrder activeOrder = (ActiveOrder) orderRepository.findById(orderId).orElseThrow(() -> new OrderNotFoundException("Order with id: " + orderId + " not found."));
         activeOrder.setCumQuantity(quantity);
         activeOrder.setStatus(OrderStatus.PARTIALLY_FILLED);
-        Order order = orderRepository.findOrderByUserIdAnAndCreatedAt(userId, activeOrder.getCreatedAt());
+        Order order = orderRepository.findOrderByUserIdAndCreatedAt(userId, activeOrder.getCreatedAt());
         order.setStatus(OrderStatus.PARTIALLY_FILLED);
         String side = activeOrder.getSide();
 
@@ -100,14 +97,14 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public JSONArray getActiveOrders(Long userId) {
-        JSONArray activeOrders = new JSONArray(activeOrdersRepository.findAll().stream().filter(order -> order.getClientOrderId().equals(userId)));
-        return activeOrders;
+        Stream<ActiveOrder> activeOrders = activeOrdersRepository.findAll().stream().filter(order -> order.getClientOrderId().equals(userId));
+        return new JSONArray(activeOrders);
     }
 
     @Override
     public JSONArray getOrdersHistory(Long userId) {
-        JSONArray ordersHistory = new JSONArray(ordersHistoryRepository.findAll().stream().filter(order -> order.getClientOrderId().equals(userId)));
-        return ordersHistory;
+        Stream<OrderHistory> ordersHistory = ordersHistoryRepository.findAll().stream().filter(order -> order.getClientOrderId().equals(userId));
+        return new JSONArray(ordersHistory);
     }
 
 }

@@ -12,11 +12,10 @@ import org.springframework.stereotype.Repository;
  * @version 1.0
  * @see com.market.simulation.services.OrderServiceImpl
  */
-
 @Repository
 public interface OrderRepository extends MongoRepository<Order, Long> {
 
     @Query("{ 'userId' : ?0, 'createdAt' : ?1 }")
-    Order findOrderByUserIdAnAndCreatedAt(Long userId, Long createdAt);
+    Order findOrderByUserIdAndCreatedAt(Long userId, Long createdAt);
 
 }

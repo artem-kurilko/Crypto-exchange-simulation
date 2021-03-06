@@ -15,11 +15,11 @@ import javax.validation.constraints.NotNull;
  * @see com.market.simulation.repository.UserRepository
  * @see com.market.simulation.services.UserServiceImpl
  */
-
 @Getter
 @Setter
 @AllArgsConstructor
 @Entity
+@Table(name="user")
 public class User {
 
     @Id

@@ -11,7 +11,6 @@ import org.springframework.data.mongodb.core.mapping.Document;
  * @see com.market.simulation.repository.ActiveOrdersRepository
  * @see com.market.simulation.services.OrderServiceImpl
  */
-
 @Document(collection = "activeOrders")
 public class ActiveOrder extends Order {
 

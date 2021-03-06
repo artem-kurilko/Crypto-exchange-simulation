@@ -10,7 +10,6 @@ import com.market.simulation.exception.UserNotFoundException;
  * @author Artemii Kurilko
  * @version 1.0
  */
-
 @FunctionalInterface
 public interface BinanceApiCallback<T> {
 

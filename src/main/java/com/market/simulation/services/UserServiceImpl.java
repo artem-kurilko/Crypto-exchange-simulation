@@ -14,7 +14,6 @@ import org.springframework.stereotype.Service;
  * @version 1.0
  * @see com.market.simulation.resource.UserController
  */
-
 @Service
 public class UserServiceImpl implements UserService {
 

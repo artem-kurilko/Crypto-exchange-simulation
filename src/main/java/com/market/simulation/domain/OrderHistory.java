@@ -11,7 +11,6 @@ import org.springframework.data.mongodb.core.mapping.Document;
  * @see com.market.simulation.repository.OrdersHistoryRepository
  * @see com.market.simulation.services.OrderServiceImpl
  */
-
 @Document(collection = "ordersHistory")
 public class OrderHistory extends Order {
 

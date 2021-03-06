@@ -3,12 +3,12 @@
 This program simulates crypto exchange, getting current order book from Binance exchange and matching it with user's active orders.
 If your price and quantity matches any of order book it can be executed fully or partially.
 
-Base url: localhost:8080
+``Base url: localhost:8080``
 
 ## Market simulation API: 
 
 ### Создание пользователя
-POST /user
+``POST /user``
 
 **Необходимые параметры запроса:**
 * userId - идентификатор пользователя, тип Long
@@ -18,35 +18,35 @@ POST /user
 
 ### Получить информацию о пользователе
 
-GET /user
+``GET /user``
 
 **Необходимые параметры запроса:**
 * userId - идентификатор пользователя, тип Long
 
 ### Баланс пользователя
 
-Получить свободный баланс биткоина
+####Получить свободный баланс биткоина
 
-GET /balance/btc/free
+``GET /balance/btc/free``
 
-Получить зарезервированный баланс биткоина
+####Получить зарезервированный баланс биткоина
 
-GET /balance/btc/reserved
+``GET /balance/btc/reserved``
 
-Получить свободный usdt баланс
+####Получить свободный usdt баланс
 
-GET /balance/usdt/free
+``GET /balance/usdt/free``
 
-Получить зарезервированный usdt баланс
+####Получить зарезервированный usdt баланс
 
-GET /balance/usdt/reserved
+``GET /balance/usdt/reserved``
 
 **Необходимые параметры запроса:**
 * userId - идентификатор пользователя, тип Long
 
 ### Разместить ордер
 
-POST /order
+``POST /order``
 
 **Необходимые параметры запроса:**
 * userId - идентификатор пользователя, тип Long
@@ -57,7 +57,7 @@ POST /order
 
 ### Отменить ордер
 
-DELETE /order
+``DELETE /order``
 
 **Необходимые параметры запроса:**
 * userId - идентификатор пользователя, тип Long
@@ -65,14 +65,14 @@ DELETE /order
 
 ### Получить активные ордера пользователя
 
-GET /order
+``GET /order``
 
 **Необходимые параметры запроса:**
 * userId - идентификатор пользователя, тип Long
 
 ### Получить выполненные ордера пользователя
 
-GET /ordersHistory
+``GET /ordersHistory``
 
 **Необходимые параметры запроса:**
 * userId - идентификатор пользователя, тип Long

@@ -11,8 +11,6 @@ import org.springframework.stereotype.Repository;
  * @version 1.0
  * @see com.market.simulation.services.OrderServiceImpl
  */
-
 @Repository
 public interface ActiveOrdersRepository extends MongoRepository<ActiveOrder, Long> {
-
 }

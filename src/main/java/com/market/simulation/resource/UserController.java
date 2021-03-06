@@ -19,7 +19,6 @@ import javax.validation.constraints.NotNull;
  * @author Kurilko Artemii
  * @version 1.0
  */
-
 @RestController
 public class UserController {
 

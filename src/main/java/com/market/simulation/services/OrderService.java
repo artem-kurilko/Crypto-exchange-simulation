@@ -11,7 +11,6 @@ import org.json.JSONArray;
  * @version 1.0
  * @see com.market.simulation.services.OrderServiceImpl
  */
-
 public interface OrderService {
 
     /**

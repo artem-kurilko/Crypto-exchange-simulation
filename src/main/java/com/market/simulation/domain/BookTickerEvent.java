@@ -13,7 +13,6 @@ import lombok.NoArgsConstructor;
  * @author Artemii Kurilko
  * @version 1.0
  */
-
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

@@ -6,7 +6,6 @@ package com.market.simulation.domain;
  * @author Artemii Kurilko
  * @version 1.0
  */
-
 public interface OrderStatus {
     String NEW = "new",
     PARTIALLY_FILLED = "partially filled",

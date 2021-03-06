@@ -11,6 +11,8 @@ import okhttp3.OkHttpClient;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import java.io.Closeable;
@@ -26,15 +28,15 @@ import static java.lang.Float.parseFloat;
  * @version 1.0
  * @see com.market.simulation.MarketSimulationRunner
  */
-
+@EnableScheduling
 @Component
-public class OrderMatchingEngine {
+public class OrdersMatchingEngine {
     private static final OkHttpClient sharedClient;
     private static final String symbol = "btcusdt";
     private final OrderServiceImpl orderService;
 
     @Autowired
-    public OrderMatchingEngine(OrderServiceImpl orderService) {
+    public OrdersMatchingEngine(OrderServiceImpl orderService) {
         this.orderService = orderService;
     }
 
@@ -48,7 +50,7 @@ public class OrderMatchingEngine {
                 .build();
     }
 
-    // FIXME: understand if active orders iterator starts with the oldest order
+    @Scheduled(fixedRate = 5000) // 5sec delay of each method invocation
     public void matchOrders() throws IOException {
         BinanceApiWebSocketClient client =  new BinanceApiWebSocketClientImpl(getSharedClient());
 
@@ -101,7 +103,6 @@ public class OrderMatchingEngine {
                 cause.printStackTrace();
             }
         });
-
         ws.close();
     }
 

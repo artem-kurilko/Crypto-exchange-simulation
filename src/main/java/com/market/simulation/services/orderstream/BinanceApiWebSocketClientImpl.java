@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
  *
  * @author Artemii Kurilko
  * @version 1.0
- * @see com.market.simulation.OrderMatchingEngine
+ * @see com.market.simulation.OrdersMatchingEngine
  */
 
 public class BinanceApiWebSocketClientImpl implements BinanceApiWebSocketClient {

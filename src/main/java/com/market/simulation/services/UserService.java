@@ -11,7 +11,6 @@ import com.market.simulation.exception.UserNotFoundException;
  * @version 1.0
  * @see com.market.simulation.services.UserServiceImpl
  */
-
 public interface UserService {
 
     /**

@@ -19,7 +19,6 @@ import static java.lang.Long.parseLong;
  * @author Kurilko Artemii
  * @version 1.0
  */
-
 @RestController
 public class OrderController {
 
