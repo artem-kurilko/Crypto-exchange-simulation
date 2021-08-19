@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.ResponseStatus;
  * @see com.market.simulation.services.UserServiceImpl
  * @see com.market.simulation.services.OrderServiceImpl
  */
-
 @ResponseStatus(value = HttpStatus.BAD_REQUEST)
 public class UserNotFoundException extends Exception {
 

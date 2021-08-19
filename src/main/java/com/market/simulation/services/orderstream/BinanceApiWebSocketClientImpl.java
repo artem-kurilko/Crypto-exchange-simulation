@@ -16,7 +16,6 @@ import java.util.stream.Collectors;
  * @version 1.0
  * @see com.market.simulation.OrdersMatchingEngine
  */
-
 public class BinanceApiWebSocketClientImpl implements BinanceApiWebSocketClient {
 
     private final OkHttpClient client;

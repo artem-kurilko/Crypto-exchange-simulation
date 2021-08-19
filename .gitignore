@@ -1,4 +1,4 @@
 .idea/
-crypto-market-simulation.iml
+*.iml
 target/
 *.log
